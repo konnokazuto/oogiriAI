@@ -1,0 +1,22 @@
+{
+  "scenes": {
+    "start": {
+      "id": "start",
+      "text": "気をつけてね。真理の一言だけが心の支えだ。どこから手をつけるのがいいかな？\n小林さんが誰にともなくたずねた。ぼくは言った。",
+      "options": [
+        { "text": "一階から調べましょう", "next": "firstFloor" },
+        { "text": "二階から調べましょう", "next": "secondFloor" }
+      ]
+    },
+    "firstFloor": {
+      "id": "firstFloor",
+      "text": "一階には特に何もなかった。",
+      "options": [{ "text": "戻る", "next": "start" }]
+    },
+    "secondFloor": {
+      "id": "secondFloor",
+      "text": "二階には不気味な部屋があった。",
+      "options": [{ "text": "戻る", "next": "start" }]
+    }
+  }
+}
