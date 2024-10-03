@@ -10,6 +10,7 @@ import { M_PLUS_Rounded_1c } from "next/font/google";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import ScoreBadge from "./ScoreBadge";
+import { HomeIcon } from "@heroicons/react/24/solid";
 
 const DotGothic16Font = M_PLUS_Rounded_1c({
   weight: "500",
@@ -18,7 +19,6 @@ const DotGothic16Font = M_PLUS_Rounded_1c({
 
 const Home = () => {
   const { data: session } = useSession();
-  console.log("Client-side session:", session);
   const [getPromptResponse, setGetPromptResponse] = useState("");
   const [evaluateResponse, setEvaluateResponse] = useState("");
   const [evaluationScore, setEvaluationScore] = useState<number | null>(null);
