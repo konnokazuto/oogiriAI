@@ -17,7 +17,7 @@ const evaluateResponse = async (
     max_tokens: 200,
   });
 
-  const message = completion.choices[0].message.content.trim();
+  const message = completion.choices[0]?.message?.content?.trim() ?? "";
   const scoreMatch = message.match(/点数: (\d+)/);
   const evaluationMatch = message.match(/評価: ([\s\S]+)/);
 
