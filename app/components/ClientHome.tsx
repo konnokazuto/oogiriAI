@@ -1,21 +1,16 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import React, { useState } from "react";
 import PromptButton from "./PromptButton";
 import TextareaWithButton from "./TextareaWithButton";
-import { M_PLUS_Rounded_1c } from "next/font/google";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import ScoreBadge from "./ScoreBadge";
 import { HomeIcon } from "@heroicons/react/24/solid";
-
-const DotGothic16Font = M_PLUS_Rounded_1c({
-  weight: "500",
-  subsets: ["latin"],
-});
 
 const Home = () => {
   const { data: session } = useSession();
@@ -28,6 +23,7 @@ const Home = () => {
   const [response, setResponse] = useState("");
   const initialMessage =
     "ここは大喜利道場じゃ。お主の大喜利力わしがチェックしてやるぞい。";
+  const router = useRouter();
 
   const handleUserIconClick = () => {
     if (session) {
@@ -142,9 +138,7 @@ const Home = () => {
         style={{ height: "670px" }}
       >
         <div className="flex justify-center items-center flex-col">
-          <div
-            className={`${DotGothic16Font.className} fukidashi-01-06 bg-white text-lg max-w-xl`}
-          >
+          <div className="font-mplus font-medium fukidashi-01-06 bg-white text-lg max-w-xl`">
             {evaluationScore !== null && <ScoreBadge score={evaluationScore} />}
             <div>
               {evaluateResponse
@@ -182,9 +176,7 @@ const Home = () => {
         )}
         {!showTextarea && showEvaluation && (
           <div className="flex flex-col items-left">
-            <p className={`${DotGothic16Font.className} text-xl`}>
-              あなたの回答
-            </p>
+            <p className="font-mplus font-bold text-xl">あなたの回答</p>
             <div className="flex flex-col items-center mt-4 p-4 border-2 border-gray-300 rounded-lg bg-white">
               <div className="flex items-center mb-2">
                 <span className="bg-pink-500 text-white font-bold py-1 px-2 rounded-l rounded-r shadow-lg">

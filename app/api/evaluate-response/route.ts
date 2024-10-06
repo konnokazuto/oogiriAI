@@ -37,8 +37,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ evaluation, score });
   } catch (error) {
     console.error("Error in /api/evaluate-response:", error);
+    let errorMessage = "評価中にエラーが発生しました。";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+
     return NextResponse.json(
-      { message: "評価中にエラーが発生しました。", error: error.message },
+      { message: "評価中にエラーが発生しました。", error: errorMessage },
       { status: 500 }
     );
   }

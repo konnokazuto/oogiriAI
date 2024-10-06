@@ -79,6 +79,9 @@ const config = {
         "1000": "1000px",
         "670": "670px",
       },
+      fontFamily: {
+        sans: ["var(--font-m-plus-rounded-1c)"],
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
