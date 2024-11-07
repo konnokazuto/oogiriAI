@@ -4,7 +4,7 @@ import OpenAI from "openai";
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-
+// Promise<T>型
 const evaluateResponse = async (
   prompt: string,
   response: string

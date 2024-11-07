@@ -16,7 +16,7 @@
     "@auth/prisma-adapter": "^2.4.2",
     "@auth/supabase-adapter": "^1.4.1",
     "@heroicons/react": "^2.1.5",
-    "@hookform/resolvers": "^3.4.2",
+    "@hookform/resolvers": "^3.9.1",
     "@prisma/client": "^5.17.0",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
@@ -30,7 +30,7 @@
     "openai": "^4.47.1",
     "react": "^18",
     "react-dom": "^18",
-    "react-hook-form": "^7.51.4",
+    "react-hook-form": "^7.53.1",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
