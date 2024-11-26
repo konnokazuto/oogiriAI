@@ -1,24 +1,61 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Session } from "next-auth";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import ScoreBadge from "@/app/components/ScoreBadge";
+import Pagination from "@/app/components/Pagination";
+import { fetchResponses } from "@/app/actions/responses";
+
+interface Response {
+  id: string;
+  prompt: string;
+  response: string;
+  evaluation: string;
+  score: number;
+  createdAt: string;
+}
+
 interface ClientMyPageProps {
+  initialData: {
+    responses: Response[];
+    pagination: {
+      total: number;
+      totalPages: number;
+      currentPage: number;
+      limit: number;
+    };
+  };
   session: Session | null;
 }
 
-export default function ClientMyPage({ session }: ClientMyPageProps) {
-  const [responses, setResponses] = useState([]);
+export default function ClientMyPage({
+  initialData,
+  session,
+}: ClientMyPageProps) {
+  const [data, setData] = useState(initialData);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  useEffect(() => {
-    if (session) {
-      fetch("/api/get-user-responses")
-        .then((res) => res.json())
-        .then((data) => setResponses(data));
+  const handlePageChange = async (page: number) => {
+    setIsLoading(true);
+    try {
+      const newData = await fetchResponses(page);
+      setData(newData);
+
+      // URLを更新
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("page", page.toString());
+      router.push(`?${params.toString()}`);
+    } catch (error) {
+      console.error("Failed to fetch responses:", error);
+    } finally {
+      setIsLoading(false);
     }
-  }, [session]);
+  };
 
   if (!session) {
     return <div>ログインしてください</div>;
@@ -34,28 +71,43 @@ export default function ClientMyPage({ session }: ClientMyPageProps) {
         </button>
       </Link>
       <h2 className="text-2xl font-semibold mb-4">過去の回答</h2>
-      {responses.map((response: any) => (
-        <div
-          key={response.id}
-          className="bg-white rounded-lg shadow-md p-6 mb-4 w-full max-w-2xl"
-        >
-          <ScoreBadge score={response.score} size="small" />
-          <h3 className="text-xl font-bold mb-2">お題: {response.prompt}</h3>
-          <p className="mb-2">
-            <strong>回答:</strong> {response.response}
-          </p>
-          <p>
-            <strong>評価:</strong> {response.evaluation}
-          </p>
-          <p className="text-sm text-gray-500 mt-2">
-            {new Date(response.createdAt).toLocaleDateString("ja-JP", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
-        </div>
-      ))}
+
+      {isLoading ? (
+        <div className="text-center py-4">読み込み中...</div>
+      ) : (
+        <>
+          {data.responses.map((response) => (
+            <div
+              key={response.id}
+              className="bg-white rounded-lg shadow-md p-6 mb-4 w-full max-w-2xl"
+            >
+              <ScoreBadge score={response.score} size="small" />
+              <h3 className="text-xl font-bold mb-2">
+                お題: {response.prompt}
+              </h3>
+              <p className="mb-2">
+                <strong>回答:</strong> {response.response}
+              </p>
+              <p>
+                <strong>評価:</strong> {response.evaluation}
+              </p>
+              <p className="text-sm text-gray-500 mt-2">
+                {new Date(response.createdAt).toLocaleDateString("ja-JP", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
+            </div>
+          ))}
+
+          <Pagination
+            totalItems={data.pagination.total}
+            defaultItemsPerPage={data.pagination.limit}
+            delta={2}
+          />
+        </>
+      )}
     </div>
   );
 }
