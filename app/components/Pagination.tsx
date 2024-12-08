@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/pagination";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
-import { paginate } from "@/lib/paginate";
+import { paginate } from "@/app/lib/paginate";
 
 interface PaginationProps {
   totalItems: number;

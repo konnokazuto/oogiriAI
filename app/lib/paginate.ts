@@ -28,7 +28,18 @@ export const paginate = (options: PaginationOptions): PaginationResult => {
   let rangeStart = Math.max(2, currentPage - delta);
   let rangeEnd = Math.min(pageCount - 1, currentPage + delta);
 
-  if (currentPage - delta > 2) {
+  // ページ数が1つしかない場合
+  if (pageCount <= 1) {
+    return {
+      pages: [{ type: "number", value: 1 }],
+      isFirstPage: true,
+      isLastPage: true,
+    };
+  }
+
+  pages.push({ type: "number", value: 1 });
+
+  if (rangeStart > 2) {
     pages.push({ type: "dots" });
   }
 
@@ -36,21 +47,15 @@ export const paginate = (options: PaginationOptions): PaginationResult => {
     pages.push({ type: "number", value: i });
   }
 
-  if (currentPage + delta < pageCount - 1) {
+  if (rangeEnd < pageCount - 1) {
     pages.push({ type: "dots" });
   }
 
-  if (pageCount > 1) {
-    pages.unshift({ type: "number", value: 1 });
-    pages.push({ type: "number", value: pageCount });
-  }
-
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === pageCount;
+  pages.push({ type: "number", value: pageCount });
 
   return {
     pages,
-    isFirstPage,
-    isLastPage,
+    isFirstPage: currentPage === 1,
+    isLastPage: currentPage === pageCount,
   };
 };

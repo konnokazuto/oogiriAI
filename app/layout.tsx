@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { NextAuthProvider } from "./components/NextAuthProvider";
-import { mPlusRounded1c } from "@/lib/fonts";
+import { mPlusRounded1c } from "@/app/lib/fonts";
 
 export const metadata: Metadata = {
   title: "大喜利AI",
