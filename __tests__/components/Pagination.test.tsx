@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
 import Pagination from "@/app/components/Pagination";
-import { useSearchParams, usePathname } from "next/navigation";
+import { render, screen } from "@testing-library/react";
+import { usePathname, useSearchParams } from "next/navigation";
 
 jest.mock("next/navigation", () => ({
   useSearchParams: jest.fn(),
@@ -12,8 +12,12 @@ describe("Pagination", () => {
   beforeEach(() => {
     (useSearchParams as jest.Mock).mockImplementation(() => ({
       get: (param: string) => {
-        if (param === "page") return "1";
-        if (param === "perPage") return "25";
+        if (param === "page") {
+          return "1";
+        }
+        if (param === "perPage") {
+          return "25";
+        }
         return null;
       },
       toString: () => "page=1&perPage=25",
@@ -38,8 +42,12 @@ describe("Pagination", () => {
   it("renders previous and next buttons when not on first or last page", () => {
     (useSearchParams as jest.Mock).mockImplementation(() => ({
       get: (param: string) => {
-        if (param === "page") return "2";
-        if (param === "perPage") return "25";
+        if (param === "page") {
+          return "2";
+        }
+        if (param === "perPage") {
+          return "25";
+        }
         return null;
       },
       toString: () => "page=2&perPage=25",
@@ -61,8 +69,12 @@ describe("Pagination", () => {
   it("does not render next button on last page", () => {
     (useSearchParams as jest.Mock).mockImplementation(() => ({
       get: (param: string) => {
-        if (param === "page") return "2";
-        if (param === "perPage") return "25";
+        if (param === "page") {
+          return "2";
+        }
+        if (param === "perPage") {
+          return "25";
+        }
         return null;
       },
       toString: () => "page=2&perPage=25",

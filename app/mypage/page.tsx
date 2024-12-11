@@ -1,8 +1,8 @@
-import { Suspense } from "react";
-import { auth } from "@/auth";
-import ClientMyPage from "@/app/components/ClientMyPage";
 import { fetchResponses } from "@/app/actions/responses";
+import ClientMyPage from "@/app/components/ClientMyPage";
 import Loading from "@/app/components/Loading";
+import { auth } from "@/auth";
+import { Suspense } from "react";
 
 export default async function MyPage({
   searchParams,

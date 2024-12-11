@@ -1,16 +1,16 @@
 "use client";
 
+import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { HomeIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import PromptButton from "./PromptButton";
-import TextareaWithButton from "./TextareaWithButton";
-import { UserCircleIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
 import ScoreBadge from "./ScoreBadge";
-import { HomeIcon } from "@heroicons/react/24/solid";
+import TextareaWithButton from "./TextareaWithButton";
 
 const Home = () => {
   const { data: session } = useSession();
@@ -41,10 +41,10 @@ const Home = () => {
         throw new Error("Failed to fetch get-prompt");
       }
       const data = await res.json();
-      setGetPromptResponse(data.prompt || "No prompt received"); // 修正
+      setGetPromptResponse(data.prompt || "No prompt received");
       setShowTextarea(true);
-      setShowEvaluation(false); // 追加
-    } catch (error) {
+      setShowEvaluation(false);
+    } catch {
       setGetPromptResponse("Error fetching prompt");
     } finally {
       setIsLoading(false);
@@ -90,7 +90,7 @@ const Home = () => {
           console.error("Failed to save response:", saveData);
         }
       }
-    } catch (error) {
+    } catch (_error) {
       setEvaluateResponse("Error fetching evaluation");
     } finally {
       setIsLoading(false);
@@ -127,6 +127,7 @@ const Home = () => {
       </div> */}
       <div className="absolute top-4 right-4">
         <button
+          type="button"
           onClick={handleUserIconClick}
           className="text-gray-700 hover:text-gray-900 transition-colors"
         >
@@ -190,7 +191,10 @@ const Home = () => {
                 {response}
               </div>
             </div>
-            <button className="flex items-center bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 focus:ring-opacity-50 border-2 border-pink-700">
+            <button
+              type="button"
+              className="flex items-center bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 focus:ring-opacity-50 border-2 border-pink-700"
+            >
               <HomeIcon className="h-6 w-6 mr-2" />
               ホーム
             </button>

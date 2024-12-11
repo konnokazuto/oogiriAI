@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from "@testing-library/react";
 import TextareaWithButton from "@/app/components/TextareaWithButton";
+import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 describe("TextareaWithButton", () => {

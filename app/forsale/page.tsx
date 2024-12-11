@@ -64,6 +64,7 @@ export default function Counter() {
       >
         {firstPhase.map((item, index) => (
           <button
+            type="button"
             key={item.number}
             onClick={() => handleFirstPhaseChange(index)}
             style={{
@@ -92,6 +93,7 @@ export default function Counter() {
       >
         {secondPhase.map((item, index) => (
           <button
+            type="button"
             key={`${item.number}-${index}`}
             onClick={() => handleSecondPhaseChange(index)}
             style={{
@@ -110,6 +112,7 @@ export default function Counter() {
 
       {/* リセットボタン */}
       <button
+        type="button"
         onClick={handleReset}
         style={{
           padding: "10px 20px",

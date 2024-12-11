@@ -1,4 +1,4 @@
-interface BBSData {
+export interface BBSData {
   id: number;
   username: string;
   title: string;

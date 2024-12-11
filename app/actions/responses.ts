@@ -1,9 +1,9 @@
 "use server";
 
-import { auth } from "@/auth";
 import { prisma } from "@/app/lib/prisma";
+import { auth } from "@/auth";
 
-export async function fetchResponses(page: number = 1, limit: number = 5) {
+export async function fetchResponses(page = 1, limit = 5) {
   const session = await auth();
 
   if (!session) {

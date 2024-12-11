@@ -1,17 +1,17 @@
 "use client";
 
+import { paginate } from "@/app/lib/paginate";
 import {
-  Pagination as _Pagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  Pagination as _Pagination,
 } from "@/components/ui/pagination";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
-import { paginate } from "@/app/lib/paginate";
 
 interface PaginationProps {
   totalItems: number;
@@ -27,8 +27,8 @@ export default function Pagination({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const currentPage = parseInt(searchParams.get("page") ?? "1");
-  const itemsPerPage = parseInt(
+  const currentPage = Number.parseInt(searchParams.get("page") ?? "1");
+  const itemsPerPage = Number.parseInt(
     searchParams.get("perPage") ?? defaultItemsPerPage.toString()
   );
 
@@ -48,7 +48,9 @@ export default function Pagination({
     [searchParams, pathname]
   );
 
-  if (totalItems <= defaultItemsPerPage) return null;
+  if (totalItems <= defaultItemsPerPage) {
+    return null;
+  }
 
   return (
     <_Pagination className="mt-4">
@@ -59,8 +61,8 @@ export default function Pagination({
           </PaginationItem>
         )}
 
-        {pages.map((page, i) => (
-          <PaginationItem key={i}>
+        {pages.map((page, _i) => (
+          <PaginationItem key={page.value}>
             {page.type === "dots" ? (
               <PaginationEllipsis />
             ) : (

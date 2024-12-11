@@ -21,7 +21,7 @@ const evaluateResponse = async (
   const scoreMatch = message.match(/点数: (\d+)/);
   const evaluationMatch = message.match(/評価: ([\s\S]+)/);
 
-  const score = scoreMatch ? parseInt(scoreMatch[1]) : 0;
+  const score = scoreMatch ? Number.parseInt(scoreMatch[1]) : 0;
   console.log(score);
   const evaluation = evaluationMatch
     ? evaluationMatch[1].trim()

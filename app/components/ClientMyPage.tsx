@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Session } from "next-auth";
-import Link from "next/link";
-import { HomeIcon } from "@heroicons/react/24/solid";
-import ScoreBadge from "@/app/components/ScoreBadge";
-import Pagination from "@/app/components/Pagination";
 import { fetchResponses } from "@/app/actions/responses";
+import Pagination from "@/app/components/Pagination";
+import ScoreBadge from "@/app/components/ScoreBadge";
+import { HomeIcon } from "@heroicons/react/24/solid";
+import type { Session } from "next-auth";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 interface Response {
   id: string;
@@ -40,7 +40,7 @@ export default function ClientMyPage({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const handlePageChange = async (page: number) => {
+  const _handlePageChange = async (page: number) => {
     setIsLoading(true);
     try {
       const newData = await fetchResponses(page);
@@ -65,7 +65,10 @@ export default function ClientMyPage({
     <div className="flex flex-col items-center min-h-screen bg-gradient-to-br from-pink-100 to-yellow-100 p-8">
       <h1 className="text-3xl font-bold mb-8">マイページ</h1>
       <Link href="/">
-        <button className="flex items-center bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 focus:ring-opacity-50 border-2 border-pink-700 mb-8">
+        <button
+          type="button"
+          className="flex items-center bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 focus:ring-opacity-50 border-2 border-pink-700 mb-8"
+        >
           <HomeIcon className="h-6 w-6 mr-2" />
           ホームに戻る
         </button>

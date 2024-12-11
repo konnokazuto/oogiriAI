@@ -1,4 +1,4 @@
-type ScoreBadgeProps = {
+export type ScoreBadgeProps = {
   score: number;
   size?: "large" | "small";
 };
@@ -31,10 +31,6 @@ const ScoreBadge: React.FC<ScoreBadgeProps> = ({ score, size = "large" }) => {
       number: "text-3xl font-extrabold",
       point: "text-lg font-medium",
     },
-  };
-  type ScoreBadgeProps = {
-    score: number;
-    size?: "large" | "small";
   };
 
   const { container, score: scoreClass, number, point } = sizeClasses[size];
