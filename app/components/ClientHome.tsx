@@ -98,33 +98,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen bg-gradient-to-br from-pink-100 to-yellow-100 relative">
-      {/* <div className="flex justify-center items-center space-x-4">
-        {session ? (
-          <>
-            <Link href="/mypage">
-              <button className="flex items-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50 border-2 border-blue-700">
-                マイページ
-              </button>
-            </Link>
-            <button
-              onClick={async () => {
-                await signOut();
-              }}
-              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300 focus:ring-opacity-50 border-2 border-red-700"
-            >
-              ログアウト
-            </button>
-          </>
-        ) : (
-          <button
-            onClick={() => signIn()}
-            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50 border-2 border-green-700"
-          >
-            ログイン
-          </button>
-        )}
-      </div> */}
+    <div className="flex flex-col items-center min-h-screen bg-gradient-to-br from-pink-100 to-yellow-100 relative">
       <div className="absolute top-4 right-4">
         <button
           type="button"
@@ -134,32 +108,32 @@ const Home = () => {
           <UserCircleIcon className="h-12 w-12" />
         </button>
       </div>
-      <div
-        className="mx-auto p-4 bg-dojo bg-no-repeat bg-center flex justify-center w-full bg-contain flex-col "
-        style={{ height: "670px" }}
-      >
-        <div className="flex justify-center items-center flex-col">
-          <div className="font-mplus font-medium fukidashi-01-06 bg-white text-lg max-w-xl`">
-            {evaluationScore !== null && <ScoreBadge score={evaluationScore} />}
-            <div>
-              {evaluateResponse
-                ? evaluateResponse
-                : getPromptResponse || initialMessage}
-            </div>
+
+      {evaluationScore !== null && (
+        <div className="absolute top-[10px] left-1/2 transform -translate-x-1/2 z-10">
+          <div className="p-2 rounded-lg">
+            <ScoreBadge score={evaluationScore} />
+          </div>
+        </div>
+      )}
+
+      <div className="mx-auto pt-[60px] mt-[50px] bg-dojo bg-no-repeat bg-center bg-contain w-full flex justify-center flex-col h-[670px]">
+        <div className="flex justify-center items-center flex-col relative">
+          <div className="font-mplus font-medium fukidashi-01-06 bg-white text-lg w-[600px]">
+            {evaluateResponse
+              ? evaluateResponse
+              : getPromptResponse || initialMessage}
           </div>
           <Image
             src="/flog.png"
             alt="cat"
             width={300}
             height={300}
-            style={{ objectFit: "cover" }} // 修正
+            className="object-cover"
           />
-          {/* <button className="flex items-center bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 focus:ring-opacity-50 border-2 border-pink-700">
-            <HomeIcon className="h-6 w-6 mr-2" />
-            ホーム
-          </button> */}
         </div>
       </div>
+
       <div className="flex justify-center">
         {!showTextarea && !showEvaluation && (
           <PromptButton isLoading={isLoading} onClick={getPromptAPI} />
