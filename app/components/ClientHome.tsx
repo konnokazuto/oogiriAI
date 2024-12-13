@@ -117,7 +117,7 @@ const Home = () => {
         </div>
       )}
 
-      <div className="mx-auto pt-[60px] mt-[50px] bg-dojo bg-no-repeat bg-center bg-contain w-full flex justify-center flex-col h-[670px]">
+      <div className="mx-auto pt-[60px] mt-[50px] bg-dojo bg-no-repeat bg-center bg-contain w-full flex justify-center flex-col h-[590px]">
         <div className="flex justify-center items-center flex-col relative">
           <div className="font-mplus font-medium fukidashi-01-06 bg-white text-lg w-[600px]">
             {evaluateResponse
