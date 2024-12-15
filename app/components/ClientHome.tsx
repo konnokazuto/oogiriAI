@@ -117,7 +117,7 @@ const Home = () => {
         </div>
       )}
 
-      <div className="mx-auto pt-[60px] mt-[50px] bg-dojo bg-no-repeat bg-center bg-contain w-full flex justify-center flex-col h-[590px]">
+      <div className="mx-auto pt-[60px] mt-[100px] bg-dojo bg-no-repeat bg-center bg-contain w-full flex justify-center flex-col h-[530px] mb-5">
         <div className="flex justify-center items-center flex-col relative">
           <div className="font-mplus font-medium fukidashi-01-06 bg-white text-lg w-[600px]">
             {evaluateResponse
@@ -151,7 +151,7 @@ const Home = () => {
         )}
         {!showTextarea && showEvaluation && (
           <div className="flex flex-col items-left">
-            <p className="font-mplus font-bold text-xl">あなたの回答</p>
+            <p className="font-mplus font-bold text-xl mt-1">あなたの回答</p>
             <div className="flex flex-col items-center mt-4 p-4 border-2 border-gray-300 rounded-lg bg-white">
               <div className="flex items-center mb-2">
                 <span className="bg-pink-500 text-white font-bold py-1 px-2 rounded-l rounded-r shadow-lg">
