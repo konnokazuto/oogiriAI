@@ -1,47 +1,46 @@
-export type ScoreBadgeProps = {
+import { cn } from "@/lib/utils";
+
+interface ScoreBadgeProps {
   score: number;
   size?: "large" | "small";
-};
+}
 
-const ScoreBadge: React.FC<ScoreBadgeProps> = ({ score, size = "large" }) => {
-  let textColor = "";
-  let glowEffect = "";
+const ScoreBadge = ({ score, size = "large" }: ScoreBadgeProps) => {
+  const colorStyles = {
+    container: cn("text-center flex items-center", {
+      "text-yellow-500 glow-strong-yellow": score >= 90,
+      "text-gray-700 glow-strong-gray": score >= 70 && score < 90,
+      "text-red-600 glow-strong-red": score < 70,
+    }),
 
-  if (score >= 90) {
-    textColor = "text-yellow-500";
-    glowEffect = "glow-strong-yellow";
-  } else if (score >= 70) {
-    textColor = "text-gray-700";
-    glowEffect = "glow-strong-gray";
-  } else {
-    textColor = "text-red-600";
-    glowEffect = "glow-strong-red";
-  }
+    wrapper: cn("flex items-baseline", {
+      "space-x-2": size === "large",
+      "space-x-1 mb-3": size === "small",
+    }),
 
-  const sizeClasses = {
-    large: {
-      container: "space-x-2 flex items-baseline",
-      score: "text-2xl font-bold tracking-widest",
-      number: "text-7xl font-extrabold",
-      point: "text-3xl font-medium",
-    },
-    small: {
-      container: "space-x-1 flex items-baseline mb-3",
-      score: "text-sm font-bold tracking-wide",
-      number: "text-3xl font-extrabold",
-      point: "text-lg font-medium",
-    },
+    score: cn("font-bold", {
+      "text-2xl tracking-widest": size === "large",
+      "text-sm tracking-wide": size === "small",
+    }),
+
+    number: cn("font-extrabold", {
+      "text-7xl": size === "large",
+      "text-3xl": size === "small",
+    }),
+
+    point: cn("font-medium", {
+      "text-3xl": size === "large",
+      "text-lg": size === "small",
+    }),
   };
 
-  const { container, score: scoreClass, number, point } = sizeClasses[size];
-
   return (
-    <div
-      className={`text-center ${textColor} ${glowEffect} flex items-center ${container}`}
-    >
-      <div className={scoreClass}>SCORE</div>
-      <div className={number}>{score}</div>
-      <div className={point}>点</div>
+    <div className={colorStyles.container}>
+      <div className={colorStyles.wrapper}>
+        <div className={colorStyles.score}>SCORE</div>
+        <div className={colorStyles.number}>{score}</div>
+        <div className={colorStyles.point}>点</div>
+      </div>
     </div>
   );
 };
