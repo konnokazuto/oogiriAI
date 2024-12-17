@@ -1,4 +1,4 @@
-import TextareaWithButton from "@/app/components/TextareaWithButton";
+import TextareaWithButton from "@/app/components/TextareaWithButton/index";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 

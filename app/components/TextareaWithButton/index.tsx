@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button";
+"use client";
+
 import { Textarea } from "@/components/ui/textarea";
-import { Loader2 } from "lucide-react";
+import { z } from "zod";
 import { useState } from "react";
-import * as z from "zod";
 
 interface TextareaProps {
-  value: string;
+  value?: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
   onSubmit: () => void;
@@ -29,7 +29,7 @@ const TextareaWithButton = ({
   // 入力開始フラグ
   const [isDirty, setIsDirty] = useState(false);
 
-  const handleChnage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     // 一度でも入力があればdirtyフラグを立てる
     if (e.target.value.length > 0) {
       setIsDirty(true);
@@ -53,7 +53,7 @@ const TextareaWithButton = ({
           } bg-pink-50 text-gray-700 rounded-lg p-4 shadow-md focus:outline-none focus:ring-4 focus:ring-opacity-50 resize-none mb-2`}
           rows={4}
           value={value}
-          onChange={handleChnage}
+          onChange={handleChange}
           placeholder={placeholder}
           onBlur={() => setIsDirty(true)}
         />
@@ -73,23 +73,16 @@ const TextareaWithButton = ({
           )}
         </div>
       </div>
-      <Button
+      <button
+        type="button"
         onClick={onSubmit}
         disabled={isDisabled}
-        className={`${
-          isDisabled
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-pink-500 hover:bg-pink-600"
-        } text-white font-bold py-4 px-8 rounded-full shadow-xl transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 focus:ring-opacity-50 border-2 ${
-          isDisabled ? "border-gray-500" : "border-pink-700"
+        className={`bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 focus:ring-opacity-50 border-2 border-pink-700 ${
+          isDisabled ? "opacity-50 cursor-not-allowed" : ""
         }`}
       >
-        {isLoading ? (
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          "回答する"
-        )}
-      </Button>
+        回答する
+      </button>
     </div>
   );
 };

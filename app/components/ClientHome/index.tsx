@@ -8,9 +8,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import PromptButton from "./PromptButton";
-import ScoreBadge from "./ScoreBadge";
-import TextareaWithButton from "./TextareaWithButton";
+import PromptButton from "../PromptButton/index";
+import ScoreBadge from "../ScoreBadge/index";
+import TextareaWithButton from "../TextareaWithButton/index";
 
 const Home = () => {
   const { data: session } = useSession();
@@ -68,10 +68,10 @@ const Home = () => {
         throw new Error("Failed to fetch evaluate-response");
       }
       const data = await res.json();
-      setEvaluateResponse(data.evaluation || "No evaluation received"); // 修正
+      setEvaluateResponse(data.evaluation || "No evaluation received");
       setEvaluationScore(typeof data.score === "number" ? data.score : null);
-      setShowEvaluation(true); // 追加
-      setShowTextarea(false); // 追加
+      setShowEvaluation(true);
+      setShowTextarea(false);
       if (session) {
         const saveRes = await fetch("/api/save-response", {
           method: "POST",

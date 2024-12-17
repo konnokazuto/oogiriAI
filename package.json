@@ -11,7 +11,9 @@
     "test:watch": "jest --watch",
     "vercel-build": "prisma generate && next build",
     "format": "biome format --write .",
-    "check": "biome check --write ."
+    "check": "biome check --write .",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@auth/core": "^0.34.2",

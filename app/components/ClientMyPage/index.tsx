@@ -2,7 +2,7 @@
 
 import { fetchResponses } from "@/app/actions/responses";
 import Pagination from "@/app/components/Pagination";
-import ScoreBadge from "@/app/components/ScoreBadge";
+import ScoreBadge from "./ScoreBadge/index";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import type { Session } from "next-auth";
 import Link from "next/link";
