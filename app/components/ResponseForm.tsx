@@ -1,11 +1,10 @@
-import type React from "react";
 import { useState } from "react";
 
 interface ResponseFormProps {
   onSubmit: (response: string) => void;
 }
 
-const ResponseForm: React.FC<ResponseFormProps> = ({ onSubmit }) => {
+const ResponseForm = ({ onSubmit }: ResponseFormProps) => {
   const [response, setResponse] = useState("");
 
   const handleSubmit = (event: React.FormEvent) => {

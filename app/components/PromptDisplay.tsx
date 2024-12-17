@@ -2,7 +2,7 @@ interface PromptDisplayProps {
   prompt: string;
 }
 
-const PromptDisplay: React.FC<PromptDisplayProps> = ({ prompt }) => {
+const PromptDisplay = ({ prompt }: PromptDisplayProps) => {
   return (
     <div className="prompt">
       <h2>{prompt}</h2>

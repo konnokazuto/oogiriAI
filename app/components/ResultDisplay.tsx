@@ -4,7 +4,7 @@ interface ResultDisplayProps {
   evaluation: string;
 }
 
-const ResultDisplay: React.FC<ResultDisplayProps> = ({ evaluation }) => {
+const ResultDisplay = ({ evaluation }: ResultDisplayProps) => {
   return (
     <div className="result">
       <h2>AIの評価</h2>
