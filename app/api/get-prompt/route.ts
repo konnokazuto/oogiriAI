@@ -7,7 +7,6 @@ const openai = new OpenAI({
 
 export async function GET() {
   try {
-    console.log(openai);
     const stream = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
