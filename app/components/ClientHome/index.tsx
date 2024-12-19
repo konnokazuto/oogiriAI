@@ -11,11 +11,12 @@ import React, { useState } from "react";
 import PromptButton from "../PromptButton/index";
 import ScoreBadge from "../ScoreBadge/index";
 import TextareaWithButton from "../TextareaWithButton/index";
+import { getPrompt, evaluateResponse } from "@/app/actions/prompt";
 
 const Home = () => {
   const { data: session } = useSession();
   const [getPromptResponse, setGetPromptResponse] = useState("");
-  const [evaluateResponse, setEvaluateResponse] = useState("");
+  const [evaluationResult, setEvaluationResult] = useState("");
   const [evaluationScore, setEvaluationScore] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showTextarea, setShowTextarea] = useState(false);
@@ -33,14 +34,10 @@ const Home = () => {
     }
   };
 
-  const getPromptAPI = async () => {
+  const handleGetPrompt = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch("/api/get-prompt");
-      if (!res.ok) {
-        throw new Error("Failed to fetch get-prompt");
-      }
-      const data = await res.json();
+      const data = await getPrompt();
       setGetPromptResponse(data.prompt || "No prompt received");
       setShowTextarea(true);
       setShowEvaluation(false);
@@ -51,24 +48,13 @@ const Home = () => {
     }
   };
 
-  const evaluateResponseAPI = async () => {
+  const handleEvaluateResponse = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch("/api/evaluate-response", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          prompt: getPromptResponse,
-          response: response,
-        }),
-      });
-      if (!res.ok) {
-        throw new Error("Failed to fetch evaluate-response");
-      }
-      const data = await res.json();
-      setEvaluateResponse(data.evaluation || "No evaluation received");
+      console.log("Current prompt:", getPromptResponse);
+
+      const data = await evaluateResponse(getPromptResponse, response);
+      setEvaluationResult(data.evaluation || "No evaluation received");
       setEvaluationScore(typeof data.score === "number" ? data.score : null);
       setShowEvaluation(true);
       setShowTextarea(false);
@@ -91,7 +77,7 @@ const Home = () => {
         }
       }
     } catch (_error) {
-      setEvaluateResponse("Error fetching evaluation");
+      setEvaluationResult("Error fetching evaluation");
     } finally {
       setIsLoading(false);
     }
@@ -120,8 +106,8 @@ const Home = () => {
       <div className="mx-auto pt-[60px] mt-[100px] bg-dojo bg-no-repeat bg-center bg-contain w-full flex justify-center flex-col h-[530px] mb-5">
         <div className="flex justify-center items-center flex-col relative">
           <div className="font-mplus font-medium fukidashi-01-06 bg-white text-lg w-[600px]">
-            {evaluateResponse
-              ? evaluateResponse
+            {evaluationResult
+              ? evaluationResult
               : getPromptResponse || initialMessage}
           </div>
           <Image
@@ -136,13 +122,13 @@ const Home = () => {
 
       <div className="flex justify-center">
         {!showTextarea && !showEvaluation && (
-          <PromptButton isLoading={isLoading} onClick={getPromptAPI} />
+          <PromptButton isLoading={isLoading} onClick={handleGetPrompt} />
         )}
         {showTextarea && !showEvaluation && (
           <div className="flex flex-col items-center mt-4">
             <TextareaWithButton
               value={response}
-              onSubmit={evaluateResponseAPI}
+              onSubmit={() => handleEvaluateResponse()}
               onChange={(e) => setResponse(e.target.value)}
               placeholder="ここに回答を書いてください..."
               isLoading={isLoading}
