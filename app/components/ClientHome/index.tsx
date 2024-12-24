@@ -34,13 +34,18 @@ const Home = () => {
     }
   };
 
-  const handleGetPrompt = async () => {
+  const handleGetPrompt = async (shouldClearResponse = false) => {
     setIsLoading(true);
     try {
       const data = await getPrompt();
       setGetPromptResponse(data.prompt || "No prompt received");
       setShowTextarea(true);
       setShowEvaluation(false);
+      setEvaluationResult("");
+      setEvaluationScore(null);
+      if (shouldClearResponse) {
+        setResponse("");
+      }
     } catch {
       setGetPromptResponse("Error fetching prompt");
     } finally {
@@ -103,7 +108,7 @@ const Home = () => {
         </div>
       )}
 
-      <div className="mx-auto pt-[60px] mt-[100px] bg-dojo bg-no-repeat bg-center bg-contain w-full flex justify-center flex-col h-[530px] mb-5">
+      <div className="mx-auto pt-[60px] mt-[100px] bg-dojo bg-no-repeat bg-center bg-contain w-full flex justify-center flex-col h-[530px] mb-1">
         <div className="flex justify-center items-center flex-col relative">
           <div className="font-mplus font-medium fukidashi-01-06 bg-white text-lg w-[600px]">
             {evaluationResult
@@ -122,7 +127,10 @@ const Home = () => {
 
       <div className="flex justify-center">
         {!showTextarea && !showEvaluation && (
-          <PromptButton isLoading={isLoading} onClick={handleGetPrompt} />
+          <PromptButton
+            isLoading={isLoading}
+            onClick={() => handleGetPrompt(false)}
+          />
         )}
         {showTextarea && !showEvaluation && (
           <div className="flex flex-col items-center mt-4">
@@ -151,13 +159,15 @@ const Home = () => {
                 {response}
               </div>
             </div>
-            <button
-              type="button"
-              className="flex items-center bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 focus:ring-opacity-50 border-2 border-pink-700"
-            >
-              <HomeIcon className="h-6 w-6 mr-2" />
-              ホーム
-            </button>
+            <div className="flex justify-end w-full">
+              <button
+                type="button"
+                onClick={() => handleGetPrompt(true)}
+                className="w-40 mt-4 flex items-center justify-center bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 focus:ring-opacity-50 border-2 border-pink-700"
+              >
+                もう一度ボケる
+              </button>
+            </div>
           </div>
         )}
       </div>
