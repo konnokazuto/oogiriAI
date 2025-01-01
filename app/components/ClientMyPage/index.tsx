@@ -7,7 +7,7 @@ import type { Session } from "next-auth";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import ScoreBadge from "./ScoreBadge/index";
+import ScoreBadge from "@/app/components/ScoreBadge/index";
 
 interface Response {
   id: string;

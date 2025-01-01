@@ -130,6 +130,7 @@ const Home = () => {
           <PromptButton
             isLoading={isLoading}
             onClick={() => handleGetPrompt(false)}
+            className="mt-4"
           />
         )}
         {showTextarea && !showEvaluation && (
