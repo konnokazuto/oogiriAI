@@ -3,6 +3,7 @@
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { z } from "zod";
+import { Loader2 } from "lucide-react";
 
 interface TextareaProps {
   value?: string;
@@ -81,7 +82,14 @@ const TextareaWithButton = ({
           isDisabled ? "opacity-50 cursor-not-allowed" : ""
         }`}
       >
-        回答する
+        {isLoading ? (
+          <div className="flex items-center">
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            回答を評価中...
+          </div>
+        ) : (
+          "回答する"
+        )}
       </button>
     </div>
   );
