@@ -9,7 +9,7 @@ const evaluateResponse = async (
   prompt: string,
   response: string
 ): Promise<{ evaluation: string; score: number }> => {
-  const evaluationPrompt = `お題：「${prompt}」\nユーザーの回答：「${response}」\nこの回答を「ユーモア」の観点から評価して、100点満点で点数をつけてください。その後に、具体的なフィードバックも提供してください。つまらない場合は厳しい評価もしてください。回答は以下の形式で返してください：\n\n点数: [0-100の整数]\n評価: [評価とフィードバック]`;
+  const evaluationPrompt = `お題：「${prompt}」\nユーザーの回答：「${response}」\nこの回答を「ユーモア」の観点から評価して、100点満点で点数をつけてください。その後に、具体的なフィードバックも提供してください。つまらない場合は厳しい評価もしてください。評価コメントは最大100文字以内でお願いします。回答は以下の形式で返してください：\n\n点数: [0-100の整数]\n評価: [評価とフィードバック]`;
 
   const completion = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
