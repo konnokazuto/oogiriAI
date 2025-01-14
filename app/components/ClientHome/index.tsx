@@ -1,5 +1,13 @@
 "use client";
-
+import { Menu, UserCircle } from "lucide-react";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarTrigger,
+  SidebarHeader,
+  SidebarProvider,
+} from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
@@ -89,17 +97,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gradient-to-br from-pink-100 to-yellow-100 relative">
-      <div className="absolute top-4 right-4">
-        <button
-          type="button"
-          onClick={handleUserIconClick}
-          className="text-gray-700 hover:text-gray-900 transition-colors"
-        >
-          <UserCircleIcon className="h-12 w-12" />
-        </button>
-      </div>
-
+    <div className="flex flex-col items-center min-h-full w-full relative">
       {evaluationScore !== null && (
         <div className="absolute top-[10px] left-1/2 transform -translate-x-1/2 z-10">
           <div className="p-2 rounded-lg">
