@@ -3,13 +3,17 @@
 import { Sidebar } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { History, LogIn, LogOut } from "lucide-react";
+import { History, LogIn, LogOut } from "lucide-react"; // アイコンをインポート
 
 export function AppSidebar() {
   const { data: session } = useSession();
 
+  interface AppSidebarProps {
+    side?: "left" | "right";
+  }
+
   return (
-    <Sidebar className="border-r bg-white">
+    <Sidebar side="right" className="border-r bg-white">
       <div className="flex h-full flex-col gap-4 p-4">
         <div className="px-3 py-2">
           <h2 className="mb-2 px-4 text-lg font-semibold">メニュー</h2>

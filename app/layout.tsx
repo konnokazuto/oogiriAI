@@ -21,11 +21,13 @@ export default function RootLayout({
         <NextAuthProvider>
           <SidebarProvider>
             <div className="flex h-full w-full">
-              <AppSidebar />
               <main className="flex-1 w-full bg-gradient-to-br from-pink-100 to-yellow-100">
-                <SidebarTrigger />
+                <div className="sticky top-0 z-50">
+                  <SidebarTrigger className="absolute right-4 top-4 scale-150" />
+                </div>
                 {children}
               </main>
+              <AppSidebar />
             </div>
           </SidebarProvider>
         </NextAuthProvider>
