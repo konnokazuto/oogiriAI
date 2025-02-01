@@ -18,7 +18,7 @@ interface Response {
   createdAt: string;
 }
 
-interface ClientMyPageProps {
+interface HistoryProps {
   initialData: {
     responses: Response[];
     pagination: {
@@ -31,10 +31,7 @@ interface ClientMyPageProps {
   session: Session | null;
 }
 
-export default function ClientMyPage({
-  initialData,
-  session,
-}: ClientMyPageProps) {
+export function History({ initialData, session }: HistoryProps) {
   const [data, setData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();

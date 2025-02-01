@@ -7,7 +7,7 @@ import { History, LogIn, LogOut } from "lucide-react"; // アイコンをイン�
 import { useRouter } from "next/navigation";
 
 export function AppSidebar() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   return (
@@ -16,7 +16,9 @@ export function AppSidebar() {
         <div className="px-3 py-2">
           <h2 className="mb-2 px-4 text-lg font-semibold">メニュー</h2>
           <div className="space-y-1">
-            {!session ? (
+            {status === "loading" ? (
+              <div>Loading...</div>
+            ) : !session ? (
               <button
                 type="button"
                 onClick={() => router.push("/auth/signin")}
@@ -58,7 +60,9 @@ export function AppSidebar() {
                 />
               )}
               <div>
-                <p className="text-sm font-medium">{session.user.name}</p>
+                <p className="text-sm font-medium">
+                  {session.user.username || session.user.name}
+                </p>
                 <p className="text-xs text-gray-500">{session.user.email}</p>
               </div>
             </div>
