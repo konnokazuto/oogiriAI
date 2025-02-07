@@ -32,7 +32,6 @@ export async function POST(req: Request) {
       id: user.id,
       email: user.email,
       name: user.username,
-      username: user.username,
     });
   } catch (error) {
     console.error("エラー発生:", error);

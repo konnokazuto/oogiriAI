@@ -3,12 +3,39 @@
 import { Sidebar } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { History, LogIn, LogOut } from "lucide-react"; // アイコンをインポート
+import { History, LogIn, LogOut, UserRoundCog } from "lucide-react"; // アイコンをインポート
 import { useRouter } from "next/navigation";
+import useSWR from "swr";
+import { useEffect } from "react";
+interface user {
+  name: string;
+  email: string;
+}
+
+const fetcher = async (url: strign): promise<UserInfo> => {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("ユーザー情報の取得に失敗しました");
+  return res.json();
+};
 
 export function AppSidebar() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
+
+  const { data: user, mutate } = useSWR("/api/user/profile", fetcher, {
+    revalidateOnFocus: false, // フォーカス時の自動再検証を不要にする
+  });
+
+  useEffect(() => {
+    const handleProfileUpdated = () => {
+      mutate();
+    };
+
+    window.addEventListener("profileUpdated", handleProfileUpdated);
+    return () => {
+      window.removeEventListener("profileUpdated", handleProfileUpdated);
+    };
+  }, [mutate]);
 
   return (
     <Sidebar side="right" className="border-r bg-white">
@@ -16,9 +43,7 @@ export function AppSidebar() {
         <div className="px-3 py-2">
           <h2 className="mb-2 px-4 text-lg font-semibold">メニュー</h2>
           <div className="space-y-1">
-            {status === "loading" ? (
-              <div>Loading...</div>
-            ) : !session ? (
+            {!session ? (
               <button
                 type="button"
                 onClick={() => router.push("/auth/signin")}
@@ -44,6 +69,13 @@ export function AppSidebar() {
                   <LogOut className="h-4 w-4" />
                   ログアウト
                 </button>
+                <Link
+                  href="/settings/profile"
+                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 hover:bg-gray-100"
+                >
+                  <UserRoundCog className="h-4 w-4" />
+                  アカウント設定
+                </Link>
               </>
             )}
           </div>
@@ -61,9 +93,11 @@ export function AppSidebar() {
               )}
               <div>
                 <p className="text-sm font-medium">
-                  {session.user.username || session.user.name}
+                  {user?.name || "読み込み中..."}
                 </p>
-                <p className="text-xs text-gray-500">{session.user.email}</p>
+                <p className="text-xs text-gray-500">
+                  {user?.email || "読み込み中..."}
+                </p>
               </div>
             </div>
           </div>

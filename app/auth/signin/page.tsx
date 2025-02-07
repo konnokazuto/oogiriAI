@@ -10,14 +10,13 @@ export default function SignIn() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    username: "",
+    name: "",
   });
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    console.log("1. フォーム送信開始"); // ここが表示されるか
     if (isSignUp) {
       // 新規登録処理
       try {
@@ -82,9 +81,9 @@ export default function SignIn() {
               </label>
               <input
                 type="text"
-                value={formData.username}
+                value={formData.name}
                 onChange={(e) =>
-                  setFormData({ ...formData, username: e.target.value })
+                  setFormData({ ...formData, name: e.target.value })
                 }
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
                 required={isSignUp}

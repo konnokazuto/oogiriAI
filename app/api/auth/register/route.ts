@@ -4,15 +4,15 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { username, email, password } = await req.json();
+    const { name, email, password } = await req.json();
 
-    if (!username || !email || !password) {
+    if (!name || !email || !password) {
       return NextResponse.json({ error: "Invalid request" }, { status: 400 });
     }
 
     const existingUser = await prisma.user.findFirst({
       where: {
-        OR: [{ email: email }, { username: username }],
+        OR: [{ email }, { name }],
       },
     });
     if (existingUser) {
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     const user = await prisma.user.create({
       data: {
         email,
-        username,
+        name,
         password: hashedPassword,
       },
     });

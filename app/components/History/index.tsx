@@ -60,7 +60,7 @@ export function History({ initialData, session }: HistoryProps) {
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gradient-to-br from-pink-100 to-yellow-100 p-8">
-      <h1 className="text-3xl font-bold mb-8">マイページ</h1>
+      <h1 className="text-3xl font-bold mb-8">過去の回答</h1>
       <Link href="/">
         <button
           type="button"
@@ -70,7 +70,6 @@ export function History({ initialData, session }: HistoryProps) {
           ホームに戻る
         </button>
       </Link>
-      <h2 className="text-2xl font-semibold mb-4">過去の回答</h2>
 
       {isLoading ? (
         <div className="text-center py-4">読み込み中...</div>

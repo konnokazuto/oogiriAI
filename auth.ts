@@ -2,7 +2,21 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/app/lib/prisma";
-import NextAuth from "next-auth";
+import NextAuth, { type DefaultSession, type Session } from "next-auth";
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      username?: string;
+    } & DefaultSession["user"];
+  }
+  interface User {
+    username?: string;
+  }
+  interface JWT {
+    username?: string;
+  }
+}
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
